@@ -64,19 +64,45 @@ Audionotes es una aplicación Android de código abierto que permite al usuario 
 
 ## 5. Fases de Implementación
 
-### Fase 1 — Interfaz de Usuario: APK Navegable en GitHub *(Prioridad actual)*
+### Fase 1 — Interfaz de Usuario: APK Navegable en GitHub ✅ COMPLETADA (v0.1.0)
 
 Objetivo: construir y publicar un APK instalable con todas las pantallas navegables. Sin lógica real — los botones responden visualmente, los formularios aceptan texto, pero no hay llamadas a APIs ni grabación de audio real. Permite validar el diseño y el flujo antes de conectar funcionalidad.
 
-- [ ] Configurar proyecto Python + Kivy + Buildozer
-- [ ] Pantalla de Onboarding: campo API key, pantalla OAuth (placeholder), campo ID carpeta Drive
-- [ ] Pantalla Principal (Home): lista simulada de grabaciones con datos de prueba
-- [ ] Pantalla de Grabacion: waveform visual, temporizador, boton de detener (sin audio real)
-- [ ] Pantalla de Resultado: confirmacion de subida simulada (sin Drive real)
-- [ ] Pantalla de Ajustes: campos editables para API key e ID de carpeta
-- [ ] Navegacion completa entre todas las pantallas
-- [ ] Pipeline de build con Buildozer configurado y funcionando
-- [ ] APK publicado en GitHub Releases e instalable en Android
+- [x] Configurar proyecto Python + Kivy + Buildozer
+- [x] Pantalla de Onboarding: campo API key, pantalla OAuth (placeholder), campo ID carpeta Drive
+- [x] Pantalla Principal (Home): lista simulada de grabaciones con datos de prueba
+- [x] Pantalla de Grabacion: waveform visual, temporizador, boton de detener (sin audio real)
+- [x] Pantalla de Resultado: confirmacion de subida simulada (sin Drive real)
+- [x] Pantalla de Ajustes: campos editables para API key e ID de carpeta
+- [x] Navegacion completa entre todas las pantallas
+- [x] Pipeline de build con Buildozer configurado y funcionando
+- [x] APK publicado en GitHub Releases v0.1.0
+
+**Release:** `github.com/juankeyboard/audionotes/releases/tag/v0.1.0`
+
+### Fase 1.5 — Cumplimiento de Seguridad Android *(Prioridad actual)*
+
+Objetivo: corregir el warning de Google Play Protect y asegurar compatibilidad con
+los requisitos de seguridad de Android 14 (API 34) antes de avanzar a funcionalidad real.
+
+**Problema detectado:** Google Play Protect muestra "This app was built for an older
+version of Android and doesn't include the latest privacy protections" al instalar
+el APK v0.1.0 via sideload.
+
+**Causa raíz:** `targetSdkVersion` debe ser 34 para cumplir con los requisitos de
+Google Play y evitar warnings en Android 12+ (API 31+).
+
+- [x] Actualizar `android.api` de 33 a 34 en `buildozer.spec`
+- [x] Agregar `android.manifest.uses_cleartext_traffic = false` (HTTPS obligatorio)
+- [x] Eliminar permisos obsoletos (`READ/WRITE_EXTERNAL_STORAGE`) → reemplazados por `READ_MEDIA_AUDIO` (API 33+)
+- [x] Agregar `android.allow_backup = False` (protege API key y tokens OAuth)
+- [x] Recompilar APK release con las nuevas configuraciones (`buildozer android release`)
+- [x] Verificado con `aapt dump badging`: `targetSdkVersion=34`, `compileSdkVersion=34`, permisos mínimos
+- [ ] **Firmar el APK** con keystore antes de publicar (APK actual: `-release-unsigned`)
+- [ ] Publicar v0.1.1 firmado en GitHub Releases
+
+**Agente disponible:** `agentes/play-store-android-agent/` para consultas sobre
+normas de seguridad Android y Google Play.
 
 ### Fase 2 — Funcionalidad Real *(siguiente etapa)*
 - [ ] Grabacion de audio con microfono interno (`plyer.audio`)

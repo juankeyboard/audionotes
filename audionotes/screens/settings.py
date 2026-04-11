@@ -13,7 +13,7 @@ from kivy.storage.jsonstore import JsonStore
 store = JsonStore("audionotes_config.json")
 
 # Versión de la app (actualizar en cada release)
-APP_VERSION = "0.1.0-fase1"
+APP_VERSION = "0.1.1-fase1"
 
 
 class SettingsScreen(Screen):
