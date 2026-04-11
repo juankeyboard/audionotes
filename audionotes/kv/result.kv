@@ -1,0 +1,101 @@
+# kv/result.kv — Diseño visual de la pantalla de resultado
+
+<ResultScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 32
+        spacing: 20
+        canvas.before:
+            Color:
+                rgba: 0.1, 0.1, 0.18, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Widget:
+            size_hint_y: 0.1
+
+        # ── Ícono de éxito ─────────────────────────────
+        Label:
+            text: "✅"
+            font_size: 72
+            size_hint_y: None
+            height: 100
+
+        # ── Mensaje principal ──────────────────────────
+        Label:
+            id: lbl_estado
+            text: "Transcripción lista y guardada en Drive."
+            font_size: 18
+            bold: True
+            color: 0.5, 0.9, 0.6, 1
+            halign: 'center'
+            text_size: self.width, None
+            size_hint_y: None
+            height: 60
+
+        # ── Detalles del archivo ───────────────────────
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: 100
+            spacing: 8
+            padding: 20
+            canvas.before:
+                Color:
+                    rgba: 0.15, 0.15, 0.25, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [10]
+
+            Label:
+                text: "Archivo generado:"
+                font_size: 12
+                color: 0.6, 0.6, 0.75, 1
+                halign: 'left'
+                text_size: self.width, None
+
+            Label:
+                id: lbl_nombre_archivo
+                text: "—"
+                font_size: 14
+                bold: True
+                color: 0.8, 0.8, 1, 1
+                halign: 'left'
+                text_size: self.width, None
+
+            Label:
+                id: lbl_duracion
+                text: "Duración: 00:00"
+                font_size: 13
+                color: 0.6, 0.6, 0.75, 1
+                halign: 'left'
+                text_size: self.width, None
+
+        Widget:
+            size_hint_y: 1
+
+        # ── Botones de acción ──────────────────────────
+        Button:
+            text: "Nueva grabación"
+            size_hint: 1, None
+            height: 52
+            background_color: 0.45, 0.2, 0.9, 1
+            background_normal: ''
+            font_size: 16
+            on_press: root.nueva_grabacion()
+
+        Button:
+            text: "Volver al inicio"
+            size_hint: 1, None
+            height: 44
+            background_color: 0.2, 0.2, 0.3, 1
+            background_normal: ''
+            font_size: 14
+            color: 0.8, 0.8, 0.9, 1
+            on_press: root.volver_al_inicio()
+
+        Widget:
+            size_hint_y: None
+            height: 16

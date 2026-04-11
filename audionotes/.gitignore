@@ -1,0 +1,15 @@
+# Buildozer genera estos directorios durante el build — no se versionan
+.buildozer/
+bin/
+
+# Archivos de configuración local del usuario (contienen API keys y tokens)
+audionotes_config.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Sistema operativo
+.DS_Store
+Thumbs.db

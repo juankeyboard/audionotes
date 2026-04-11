@@ -1,0 +1,145 @@
+# kv/home.kv — Diseño visual de la pantalla principal (Home)
+
+<GrabacionItem>:
+    # Widget personalizado para cada item de la lista
+    # Las propiedades titulo, fecha, hora, duracion vienen del Python
+    orientation: 'horizontal'
+    size_hint_y: None
+    height: 72
+    spacing: 12
+    padding: [12, 8]
+    canvas.before:
+        Color:
+            rgba: 0.15, 0.15, 0.25, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [8]
+
+    # Ícono de micrófono
+    Label:
+        text: "🎙️"
+        font_size: 28
+        size_hint_x: None
+        width: 40
+
+    # Información de la grabación
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 2
+
+        Label:
+            text: root.titulo
+            font_size: 15
+            bold: True
+            color: 0.9, 0.9, 1, 1
+            halign: 'left'
+            valign: 'middle'
+            text_size: self.width, None
+
+        Label:
+            text: root.fecha + "  " + root.hora
+            font_size: 12
+            color: 0.6, 0.6, 0.75, 1
+            halign: 'left'
+            text_size: self.width, None
+
+    # Duración
+    Label:
+        text: root.duracion
+        font_size: 13
+        color: 0.6, 0.6, 0.75, 1
+        size_hint_x: None
+        width: 60
+        halign: 'right'
+
+    # Ícono de estado (nube sincronizada)
+    Label:
+        text: "☁️"
+        font_size: 18
+        size_hint_x: None
+        width: 32
+
+
+<HomeScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: 0.1, 0.1, 0.18, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # ── Barra superior ──────────────────────────
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 60
+            padding: [16, 8]
+            spacing: 8
+            canvas.before:
+                Color:
+                    rgba: 0.12, 0.12, 0.22, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Label:
+                text: "Audionotes"
+                font_size: 20
+                bold: True
+                color: 0.7, 0.5, 1, 1
+                halign: 'left'
+                text_size: self.width, None
+
+            Button:
+                text: "⚙️"
+                font_size: 22
+                size_hint_x: None
+                width: 48
+                background_color: 0, 0, 0, 0
+                color: 0.7, 0.7, 0.9, 1
+                on_press: root.ir_a_ajustes()
+
+        # ── Lista de grabaciones ─────────────────────
+        ScrollView:
+            size_hint_y: 1
+
+            BoxLayout:
+                id: lista_grabaciones
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 8
+                padding: [12, 12]
+
+        # ── FAB: Botón de nueva grabación ────────────
+        # El FAB se posiciona sobre la lista usando un FloatLayout wrapper
+        FloatLayout:
+            size_hint_y: None
+            height: 0
+
+            Button:
+                text: "+"
+                font_size: 32
+                bold: True
+                size_hint: None, None
+                size: 64, 64
+                pos_hint: {'center_x': 0.5, 'center_y': 0}
+                y: 24
+                background_color: 0.45, 0.2, 0.9, 1
+                background_normal: ''
+                color: 1, 1, 1, 1
+                on_press: root.nueva_grabacion()
+                canvas.before:
+                    Color:
+                        rgba: 0.45, 0.2, 0.9, 1
+                    Ellipse:
+                        pos: self.pos
+                        size: self.size
+
+        # Espacio para el FAB
+        Widget:
+            size_hint_y: None
+            height: 80

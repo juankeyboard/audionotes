@@ -1,0 +1,453 @@
+# kv/onboarding.kv — Diseño visual de las pantallas de onboarding
+#
+# En KV language cada <NombreDeClase> define cómo se ve esa clase Python.
+# Los ids permiten acceder a los widgets desde Python con self.ids.nombre_id
+
+# ─────────────────────────────────────────────
+# Pantalla 1: Bienvenida
+# ─────────────────────────────────────────────
+<OnboardingWelcomeScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 40
+        spacing: 20
+        canvas.before:
+            Color:
+                rgba: 0.1, 0.1, 0.18, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Widget:
+            size_hint_y: 0.15
+
+        # Ícono / logo placeholder
+        Label:
+            text: "🎙️"
+            font_size: 72
+            size_hint_y: None
+            height: 100
+
+        Label:
+            text: "Audionotes"
+            font_size: 36
+            bold: True
+            color: 0.7, 0.5, 1, 1
+            size_hint_y: None
+            height: 50
+
+        Label:
+            text: "Graba audio. Obtén texto.\nTodo en tu Google Drive."
+            font_size: 18
+            color: 0.8, 0.8, 0.9, 1
+            halign: 'center'
+            text_size: self.width, None
+            size_hint_y: None
+            height: 60
+
+        Widget:
+            size_hint_y: 0.2
+
+        Button:
+            text: "Comenzar"
+            size_hint: 0.8, None
+            height: 56
+            pos_hint: {'center_x': 0.5}
+            background_color: 0.45, 0.2, 0.9, 1
+            background_normal: ''
+            color: 1, 1, 1, 1
+            font_size: 18
+            on_press: root.ir_a_apikey()
+
+        Widget:
+            size_hint_y: 0.1
+
+# ─────────────────────────────────────────────
+# Pantalla 2: API Key
+# ─────────────────────────────────────────────
+<OnboardingApiKeyScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 32
+        spacing: 16
+        canvas.before:
+            Color:
+                rgba: 0.1, 0.1, 0.18, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "API Key de Google AI Studio"
+            font_size: 22
+            bold: True
+            color: 0.7, 0.5, 1, 1
+            size_hint_y: None
+            height: 50
+
+        Label:
+            text: "1. Ve a aistudio.google.com\n2. Crea o selecciona un proyecto\n3. Genera una API key y pégala aquí"
+            font_size: 14
+            color: 0.75, 0.75, 0.85, 1
+            halign: 'left'
+            text_size: self.width, None
+            size_hint_y: None
+            height: 80
+
+        TextInput:
+            id: input_apikey
+            hint_text: "Pega tu API key aquí"
+            password: True
+            multiline: False
+            size_hint_y: None
+            height: 52
+            background_color: 0.15, 0.15, 0.25, 1
+            foreground_color: 1, 1, 1, 1
+            hint_text_color: 0.5, 0.5, 0.6, 1
+            font_size: 14
+            padding: [12, 14]
+
+        Label:
+            id: lbl_error
+            text: ""
+            color: 1, 0.4, 0.4, 1
+            font_size: 13
+            size_hint_y: None
+            height: 24
+
+        Widget:
+            size_hint_y: 1
+
+        Button:
+            text: "Verificar y continuar"
+            size_hint: 1, None
+            height: 52
+            background_color: 0.45, 0.2, 0.9, 1
+            background_normal: ''
+            font_size: 16
+            on_press: root.verificar_y_continuar()
+
+        Button:
+            text: "Atrás"
+            size_hint: 1, None
+            height: 44
+            background_color: 0.2, 0.2, 0.3, 1
+            background_normal: ''
+            font_size: 14
+            on_press: root.ir_atras()
+
+# ─────────────────────────────────────────────
+# Pantalla 3: OAuth Google
+# ─────────────────────────────────────────────
+<OnboardingOAuthScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 32
+        spacing: 16
+        canvas.before:
+            Color:
+                rgba: 0.1, 0.1, 0.18, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "Conectar con Google"
+            font_size: 22
+            bold: True
+            color: 0.7, 0.5, 1, 1
+            size_hint_y: None
+            height: 50
+
+        Label:
+            text: "Audionotes guardará tus grabaciones en una carpeta de tu Google Drive. Presiona el botón para autorizar el acceso."
+            font_size: 14
+            color: 0.75, 0.75, 0.85, 1
+            halign: 'left'
+            text_size: self.width, None
+            size_hint_y: None
+            height: 70
+
+        Button:
+            text: "Conectar con Google"
+            size_hint: 1, None
+            height: 52
+            background_color: 0.15, 0.5, 0.3, 1
+            background_normal: ''
+            font_size: 16
+            on_press: root.simular_abrir_navegador()
+
+        Label:
+            id: lbl_oauth_status
+            text: ""
+            color: 0.5, 0.9, 0.6, 1
+            font_size: 13
+            size_hint_y: None
+            height: 30
+
+        Label:
+            text: "Pega aquí el código de autorización que Google te mostró:"
+            font_size: 14
+            color: 0.75, 0.75, 0.85, 1
+            halign: 'left'
+            text_size: self.width, None
+            size_hint_y: None
+            height: 40
+
+        TextInput:
+            id: input_codigo_oauth
+            hint_text: "Código de autorización"
+            multiline: False
+            size_hint_y: None
+            height: 52
+            background_color: 0.15, 0.15, 0.25, 1
+            foreground_color: 1, 1, 1, 1
+            hint_text_color: 0.5, 0.5, 0.6, 1
+            font_size: 14
+            padding: [12, 14]
+
+        Label:
+            id: lbl_error_oauth
+            text: ""
+            color: 1, 0.4, 0.4, 1
+            font_size: 13
+            size_hint_y: None
+            height: 24
+
+        Widget:
+            size_hint_y: 1
+
+        Button:
+            text: "Confirmar"
+            size_hint: 1, None
+            height: 52
+            background_color: 0.45, 0.2, 0.9, 1
+            background_normal: ''
+            font_size: 16
+            on_press: root.confirmar_codigo()
+
+        Button:
+            text: "Atrás"
+            size_hint: 1, None
+            height: 44
+            background_color: 0.2, 0.2, 0.3, 1
+            background_normal: ''
+            font_size: 14
+            on_press: root.ir_atras()
+
+# ─────────────────────────────────────────────
+# Pantalla 4: ID de carpeta Drive
+# ─────────────────────────────────────────────
+<OnboardingDriveScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 32
+        spacing: 16
+        canvas.before:
+            Color:
+                rgba: 0.1, 0.1, 0.18, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "Carpeta de Google Drive"
+            font_size: 22
+            bold: True
+            color: 0.7, 0.5, 1, 1
+            size_hint_y: None
+            height: 50
+
+        Label:
+            text: "Abre Google Drive, navega a la carpeta donde guardarás tus grabaciones y copia el ID al final de la URL:"
+            font_size: 14
+            color: 0.75, 0.75, 0.85, 1
+            halign: 'left'
+            text_size: self.width, None
+            size_hint_y: None
+            height: 70
+
+        Label:
+            text: "drive.google.com/drive/folders/[ID_AQUÍ]"
+            font_size: 12
+            color: 0.5, 0.8, 1, 1
+            halign: 'center'
+            text_size: self.width, None
+            size_hint_y: None
+            height: 30
+
+        TextInput:
+            id: input_folder_id
+            hint_text: "ID de carpeta de Drive"
+            multiline: False
+            size_hint_y: None
+            height: 52
+            background_color: 0.15, 0.15, 0.25, 1
+            foreground_color: 1, 1, 1, 1
+            hint_text_color: 0.5, 0.5, 0.6, 1
+            font_size: 14
+            padding: [12, 14]
+
+        Label:
+            id: lbl_error_drive
+            text: ""
+            color: 1, 0.4, 0.4, 1
+            font_size: 13
+            size_hint_y: None
+            height: 24
+
+        Widget:
+            size_hint_y: 1
+
+        Button:
+            text: "Verificar y continuar"
+            size_hint: 1, None
+            height: 52
+            background_color: 0.45, 0.2, 0.9, 1
+            background_normal: ''
+            font_size: 16
+            on_press: root.verificar_y_continuar()
+
+        Button:
+            text: "Atrás"
+            size_hint: 1, None
+            height: 44
+            background_color: 0.2, 0.2, 0.3, 1
+            background_normal: ''
+            font_size: 14
+            on_press: root.ir_atras()
+
+# ─────────────────────────────────────────────
+# Pantalla 5: Permisos del dispositivo
+# ─────────────────────────────────────────────
+<OnboardingPermissionsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 32
+        spacing: 16
+        canvas.before:
+            Color:
+                rgba: 0.1, 0.1, 0.18, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "Permisos del dispositivo"
+            font_size: 22
+            bold: True
+            color: 0.7, 0.5, 1, 1
+            size_hint_y: None
+            height: 50
+
+        Label:
+            text: "Audionotes necesita los siguientes permisos para funcionar:"
+            font_size: 14
+            color: 0.75, 0.75, 0.85, 1
+            halign: 'left'
+            text_size: self.width, None
+            size_hint_y: None
+            height: 40
+
+        Label:
+            text: "🎙️  Micrófono — para grabar audio\n💾  Almacenamiento — guardar audio temporalmente\n🌐  Internet — enviar a Gemini y subir a Drive"
+            font_size: 15
+            color: 0.85, 0.85, 0.95, 1
+            halign: 'left'
+            text_size: self.width, None
+            size_hint_y: None
+            height: 90
+
+        Button:
+            id: btn_permisos
+            text: "Conceder permisos"
+            size_hint: 1, None
+            height: 52
+            background_color: 0.2, 0.5, 0.8, 1
+            background_normal: ''
+            font_size: 16
+            on_press: root.solicitar_permisos()
+
+        Label:
+            id: lbl_permisos_status
+            text: ""
+            color: 0.5, 0.9, 0.6, 1
+            font_size: 13
+            size_hint_y: None
+            height: 30
+
+        Widget:
+            size_hint_y: 1
+
+        Button:
+            text: "Continuar"
+            size_hint: 1, None
+            height: 52
+            background_color: 0.45, 0.2, 0.9, 1
+            background_normal: ''
+            font_size: 16
+            on_press: root.continuar()
+
+        Button:
+            text: "Atrás"
+            size_hint: 1, None
+            height: 44
+            background_color: 0.2, 0.2, 0.3, 1
+            background_normal: ''
+            font_size: 14
+            on_press: root.ir_atras()
+
+# ─────────────────────────────────────────────
+# Pantalla 6: Onboarding completado
+# ─────────────────────────────────────────────
+<OnboardingDoneScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 40
+        spacing: 24
+        canvas.before:
+            Color:
+                rgba: 0.1, 0.1, 0.18, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Widget:
+            size_hint_y: 0.2
+
+        Label:
+            text: "✅"
+            font_size: 72
+            size_hint_y: None
+            height: 100
+
+        Label:
+            text: "Todo está configurado."
+            font_size: 24
+            bold: True
+            color: 0.5, 0.9, 0.6, 1
+            size_hint_y: None
+            height: 40
+
+        Label:
+            text: "Ya puedes grabar."
+            font_size: 18
+            color: 0.75, 0.75, 0.85, 1
+            size_hint_y: None
+            height: 34
+
+        Widget:
+            size_hint_y: 0.3
+
+        Button:
+            text: "Ir a la app"
+            size_hint: 0.8, None
+            height: 56
+            pos_hint: {'center_x': 0.5}
+            background_color: 0.45, 0.2, 0.9, 1
+            background_normal: ''
+            font_size: 18
+            on_press: root.ir_a_la_app()
+
+        Widget:
+            size_hint_y: 0.1

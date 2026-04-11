@@ -1,0 +1,98 @@
+# kv/recording.kv — Diseño visual de la pantalla de grabación
+
+<RecordingScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 24
+        spacing: 20
+        canvas.before:
+            Color:
+                rgba: 0.08, 0.08, 0.15, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # ── Barra superior con botón cancelar ────────
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 50
+
+            Button:
+                text: "✕  Cancelar"
+                size_hint_x: None
+                width: 120
+                font_size: 14
+                background_color: 0, 0, 0, 0
+                color: 0.6, 0.6, 0.75, 1
+                on_press: root.cancelar()
+
+            Label:
+                text: "Grabando..."
+                font_size: 18
+                bold: True
+                color: 1, 0.3, 0.3, 1
+
+            Widget:
+                size_hint_x: None
+                width: 120
+
+        Widget:
+            size_hint_y: 0.1
+
+        # ── Punto rojo pulsante (indicador de grabación) ──
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 40
+            spacing: 8
+            pos_hint: {'center_x': 0.5}
+
+            Label:
+                text: "⬤"
+                font_size: 24
+                color: 1, 0.2, 0.2, 1
+                size_hint_x: None
+                width: 32
+
+            Label:
+                text: "REC"
+                font_size: 16
+                bold: True
+                color: 1, 0.2, 0.2, 1
+                size_hint_x: None
+                width: 50
+
+        # ── Temporizador ──────────────────────────────
+        Label:
+            id: lbl_timer
+            text: "00:00"
+            font_size: 64
+            bold: True
+            color: 0.9, 0.9, 1, 1
+            size_hint_y: None
+            height: 90
+
+        # ── Waveform animado ──────────────────────────
+        WaveformWidget:
+            size_hint_y: None
+            height: 120
+
+        Widget:
+            size_hint_y: 1
+
+        # ── Botón detener ─────────────────────────────
+        Button:
+            text: "⏹  Detener y procesar"
+            size_hint: 0.85, None
+            height: 60
+            pos_hint: {'center_x': 0.5}
+            background_color: 0.45, 0.2, 0.9, 1
+            background_normal: ''
+            font_size: 18
+            color: 1, 1, 1, 1
+            on_press: root.detener_y_procesar()
+
+        Widget:
+            size_hint_y: None
+            height: 20

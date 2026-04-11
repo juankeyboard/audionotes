@@ -1,0 +1,155 @@
+# kv/settings.kv — Diseño visual de la pantalla de ajustes
+
+<SettingsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: 0.1, 0.1, 0.18, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # ── Barra superior ────────────────────────────
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 60
+            padding: [12, 8]
+            canvas.before:
+                Color:
+                    rgba: 0.12, 0.12, 0.22, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            Button:
+                text: "← Volver"
+                size_hint_x: None
+                width: 100
+                font_size: 14
+                background_color: 0, 0, 0, 0
+                color: 0.6, 0.6, 0.8, 1
+                on_press: root.volver()
+
+            Label:
+                text: "Ajustes"
+                font_size: 20
+                bold: True
+                color: 0.7, 0.5, 1, 1
+
+            Widget:
+                size_hint_x: None
+                width: 100
+
+        # ── Contenido ─────────────────────────────────
+        ScrollView:
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 24
+                spacing: 20
+                size_hint_y: None
+                height: self.minimum_height
+
+                # API Key
+                Label:
+                    text: "API Key de Google AI Studio"
+                    font_size: 14
+                    color: 0.6, 0.6, 0.75, 1
+                    halign: 'left'
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: 28
+
+                TextInput:
+                    id: input_apikey
+                    hint_text: "Tu API key"
+                    password: True
+                    multiline: False
+                    size_hint_y: None
+                    height: 52
+                    background_color: 0.15, 0.15, 0.25, 1
+                    foreground_color: 1, 1, 1, 1
+                    hint_text_color: 0.5, 0.5, 0.6, 1
+                    font_size: 14
+                    padding: [12, 14]
+
+                # ID carpeta Drive
+                Label:
+                    text: "ID de carpeta de Google Drive"
+                    font_size: 14
+                    color: 0.6, 0.6, 0.75, 1
+                    halign: 'left'
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: 28
+
+                TextInput:
+                    id: input_folder_id
+                    hint_text: "ID de la carpeta en Drive"
+                    multiline: False
+                    size_hint_y: None
+                    height: 52
+                    background_color: 0.15, 0.15, 0.25, 1
+                    foreground_color: 1, 1, 1, 1
+                    hint_text_color: 0.5, 0.5, 0.6, 1
+                    font_size: 14
+                    padding: [12, 14]
+
+                # Mensaje de estado (errores o éxito al guardar)
+                Label:
+                    id: lbl_mensaje
+                    text: ""
+                    color: 0.5, 0.9, 0.6, 1
+                    font_size: 13
+                    halign: 'left'
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: 28
+
+                Button:
+                    text: "Guardar cambios"
+                    size_hint: 1, None
+                    height: 52
+                    background_color: 0.45, 0.2, 0.9, 1
+                    background_normal: ''
+                    font_size: 16
+                    on_press: root.guardar_cambios()
+
+                # Separador
+                Widget:
+                    size_hint_y: None
+                    height: 20
+
+                Button:
+                    text: "Desconectar cuenta de Google"
+                    size_hint: 1, None
+                    height: 48
+                    background_color: 0.6, 0.15, 0.15, 1
+                    background_normal: ''
+                    font_size: 14
+                    on_press: root.desconectar_google()
+
+                # Info de la app
+                Widget:
+                    size_hint_y: None
+                    height: 24
+
+                Label:
+                    id: lbl_version
+                    text: ""
+                    font_size: 12
+                    color: 0.45, 0.45, 0.55, 1
+                    halign: 'center'
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: 24
+
+                Label:
+                    text: "github.com/juankeyboard/audionotes"
+                    font_size: 12
+                    color: 0.4, 0.6, 0.9, 1
+                    halign: 'center'
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: 24
