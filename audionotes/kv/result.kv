@@ -1,101 +1,139 @@
-# kv/result.kv — Diseño visual de la pantalla de resultado
+# kv/result.kv — Diseño "Sonic Clarity" (MD3 light theme)
 
 <ResultScreen>:
     BoxLayout:
         orientation: 'vertical'
-        padding: 32
-        spacing: 20
+        padding: [24, 0, 24, 32]
+        spacing: 0
         canvas.before:
             Color:
-                rgba: 0.1, 0.1, 0.18, 1
+                rgba: 0.973, 0.976, 0.980, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
 
+        # AppBar vacía (solo espacio)
         Widget:
-            size_hint_y: 0.1
-
-        # ── Ícono de éxito ─────────────────────────────
-        Label:
-            text: "✅"
-            font_size: 72
             size_hint_y: None
-            height: 100
+            height: 64
 
-        # ── Mensaje principal ──────────────────────────
+        Widget:
+            size_hint_y: None
+            height: 32
+
+        # ── Ícono de éxito ────────────────────────────
+        Label:
+            text: "OK"
+            font_size: 52
+            bold: True
+            size_hint_y: None
+            height: 80
+            color: 0.114, 0.533, 0.349, 1
+            halign: 'center'
+
+        Widget:
+            size_hint_y: None
+            height: 16
+
+        # ── Mensaje principal ─────────────────────────
         Label:
             id: lbl_estado
-            text: "Transcripción lista y guardada en Drive."
-            font_size: 18
+            text: "Transcripcion lista\ny guardada en Drive."
+            font_size: 24
             bold: True
-            color: 0.5, 0.9, 0.6, 1
+            color: 0.169, 0.204, 0.216, 1
             halign: 'center'
             text_size: self.width, None
             size_hint_y: None
-            height: 60
+            height: 72
 
-        # ── Detalles del archivo ───────────────────────
+        Widget:
+            size_hint_y: None
+            height: 24
+
+        # ── Card con detalles ─────────────────────────
         BoxLayout:
             orientation: 'vertical'
             size_hint_y: None
-            height: 100
-            spacing: 8
-            padding: 20
+            height: 108
+            spacing: 6
+            padding: [20, 16]
             canvas.before:
                 Color:
-                    rgba: 0.15, 0.15, 0.25, 1
+                    rgba: 1, 1, 1, 1
                 RoundedRectangle:
                     pos: self.pos
                     size: self.size
-                    radius: [10]
+                    radius: [20]
+                Color:
+                    rgba: 0.671, 0.702, 0.718, 0.35
+                Line:
+                    rounded_rectangle: (self.x, self.y, self.width, self.height, 20)
+                    width: 1
 
             Label:
-                text: "Archivo generado:"
+                text: "Archivo generado"
                 font_size: 12
-                color: 0.6, 0.6, 0.75, 1
+                color: 0.345, 0.376, 0.392, 1
                 halign: 'left'
                 text_size: self.width, None
 
             Label:
                 id: lbl_nombre_archivo
                 text: "—"
-                font_size: 14
+                font_size: 15
                 bold: True
-                color: 0.8, 0.8, 1, 1
+                color: 0.169, 0.204, 0.216, 1
                 halign: 'left'
                 text_size: self.width, None
 
             Label:
                 id: lbl_duracion
-                text: "Duración: 00:00"
+                text: "Duracion: 00:00"
                 font_size: 13
-                color: 0.6, 0.6, 0.75, 1
+                color: 0.345, 0.376, 0.392, 1
                 halign: 'left'
                 text_size: self.width, None
 
         Widget:
             size_hint_y: 1
 
-        # ── Botones de acción ──────────────────────────
+        # ── Botones ───────────────────────────────────
         Button:
-            text: "Nueva grabación"
+            text: "Nueva grabacion"
             size_hint: 1, None
-            height: 52
-            background_color: 0.45, 0.2, 0.9, 1
+            height: 56
+            background_color: 0, 0, 0, 0
             background_normal: ''
+            color: 1, 1, 1, 1
             font_size: 16
+            bold: True
             on_press: root.nueva_grabacion()
+            canvas.before:
+                Color:
+                    rgba: 0, 0.298, 0.929, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [28]
+
+        Widget:
+            size_hint_y: None
+            height: 12
 
         Button:
             text: "Volver al inicio"
             size_hint: 1, None
-            height: 44
-            background_color: 0.2, 0.2, 0.3, 1
+            height: 48
+            background_color: 0, 0, 0, 0
             background_normal: ''
-            font_size: 14
-            color: 0.8, 0.8, 0.9, 1
+            color: 0, 0.298, 0.929, 1
+            font_size: 15
             on_press: root.volver_al_inicio()
-
-        Widget:
-            size_hint_y: None
-            height: 16
+            canvas.before:
+                Color:
+                    rgba: 0.867, 0.882, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [24]

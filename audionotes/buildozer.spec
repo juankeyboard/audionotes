@@ -12,7 +12,7 @@ source.dir = .
 source.include_exts = py,kv,json,png,jpg,ttf
 
 # Versión de la app
-version = 0.1.1
+version = 0.2.0
 
 # Punto de entrada
 entrypoint = main.py

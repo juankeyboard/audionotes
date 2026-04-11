@@ -1,64 +1,79 @@
-# kv/home.kv — Diseño visual de la pantalla principal (Home)
+# kv/home.kv — Diseño visual "Sonic Clarity" (MD3 light theme)
+#
+# Paleta:
+#   primary            = 0, 0.298, 0.929, 1   (#004ced)
+#   surface            = 0.973, 0.976, 0.980, 1 (#f8f9fa)
+#   surface-low        = 0.945, 0.957, 0.965, 1 (#f1f4f6)
+#   surface-container  = 0.918, 0.937, 0.945, 1 (#eaeff1)
+#   on-surface         = 0.169, 0.204, 0.216, 1 (#2b3437)
+#   on-surface-variant = 0.345, 0.376, 0.392, 1 (#586064)
+#   outline-variant    = 0.671, 0.702, 0.718, 1 (#abb3b7)
 
 <GrabacionItem>:
-    # Widget personalizado para cada item de la lista
-    # Las propiedades titulo, fecha, hora, duracion vienen del Python
     orientation: 'horizontal'
     size_hint_y: None
-    height: 72
+    height: 76
     spacing: 12
-    padding: [12, 8]
+    padding: [16, 10, 12, 10]
     canvas.before:
         Color:
-            rgba: 0.15, 0.15, 0.25, 1
+            rgba: 1, 1, 1, 1
         RoundedRectangle:
             pos: self.pos
             size: self.size
-            radius: [8]
+            radius: [16]
+        # Borde sutil
+        Color:
+            rgba: 0.671, 0.702, 0.718, 0.4
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 16)
+            width: 1
 
-    # Ícono de micrófono
+    # Ícono mic
     Label:
-        text: "🎙️"
-        font_size: 28
+        text: "mic"
+        font_size: 22
         size_hint_x: None
         width: 40
+        color: 0, 0.298, 0.929, 1
 
-    # Información de la grabación
+    # Información
     BoxLayout:
         orientation: 'vertical'
-        spacing: 2
+        spacing: 3
 
         Label:
             text: root.titulo
-            font_size: 15
+            font_size: 14
             bold: True
-            color: 0.9, 0.9, 1, 1
+            color: 0.169, 0.204, 0.216, 1
             halign: 'left'
             valign: 'middle'
             text_size: self.width, None
 
         Label:
-            text: root.fecha + "  " + root.hora
+            text: root.fecha + "  " + root.hora + "   " + root.duracion
             font_size: 12
-            color: 0.6, 0.6, 0.75, 1
+            color: 0.345, 0.376, 0.392, 1
             halign: 'left'
             text_size: self.width, None
 
-    # Duración
+    # Estado nube
     Label:
-        text: root.duracion
-        font_size: 13
-        color: 0.6, 0.6, 0.75, 1
+        text: "sync"
+        font_size: 16
+        color: 0, 0.298, 0.929, 1
         size_hint_x: None
-        width: 60
-        halign: 'right'
+        width: 28
 
-    # Ícono de estado (nube sincronizada)
+    # Chevron
     Label:
-        text: "☁️"
-        font_size: 18
+        text: ">"
+        font_size: 16
+        bold: True
+        color: 0.671, 0.702, 0.718, 1
         size_hint_x: None
-        width: 32
+        width: 20
 
 
 <HomeScreen>:
@@ -66,41 +81,67 @@
         orientation: 'vertical'
         canvas.before:
             Color:
-                rgba: 0.1, 0.1, 0.18, 1
+                rgba: 0.973, 0.976, 0.980, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
 
-        # ── Barra superior ──────────────────────────
+        # ── TopAppBar ────────────────────────────────
         BoxLayout:
             orientation: 'horizontal'
             size_hint_y: None
-            height: 60
-            padding: [16, 8]
+            height: 64
+            padding: [20, 0, 12, 0]
             spacing: 8
             canvas.before:
                 Color:
-                    rgba: 0.12, 0.12, 0.22, 1
+                    rgba: 0.945, 0.957, 0.965, 1
                 Rectangle:
                     pos: self.pos
                     size: self.size
 
+            # Nombre de la app
             Label:
                 text: "Audionotes"
                 font_size: 20
                 bold: True
-                color: 0.7, 0.5, 1, 1
+                color: 0.169, 0.204, 0.216, 1
                 halign: 'left'
                 text_size: self.width, None
 
+            # Botón de ajustes (avatar / settings)
             Button:
-                text: "⚙️"
-                font_size: 22
+                text: "[b]...[/b]"
+                markup: True
+                font_size: 20
                 size_hint_x: None
-                width: 48
+                width: 44
                 background_color: 0, 0, 0, 0
-                color: 0.7, 0.7, 0.9, 1
+                color: 0.345, 0.376, 0.392, 1
                 on_press: root.ir_a_ajustes()
+
+        # ── Hero: título editorial ───────────────────
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: 80
+            padding: [20, 12, 20, 4]
+            spacing: 2
+
+            Label:
+                text: "TUS GRABACIONES"
+                font_size: 11
+                color: 0.345, 0.376, 0.392, 1
+                halign: 'left'
+                text_size: self.width, None
+
+            Label:
+                text: "Tu voz, capturada."
+                font_size: 26
+                bold: True
+                color: 0.169, 0.204, 0.216, 1
+                halign: 'left'
+                text_size: self.width, None
 
         # ── Lista de grabaciones ─────────────────────
         ScrollView:
@@ -112,34 +153,124 @@
                 size_hint_y: None
                 height: self.minimum_height
                 spacing: 8
-                padding: [12, 12]
+                padding: [16, 4, 16, 12]
 
-        # ── FAB: Botón de nueva grabación ────────────
-        # El FAB se posiciona sobre la lista usando un FloatLayout wrapper
-        FloatLayout:
+        # ── FAB: botón de nueva grabación (ancho completo) ──
+        BoxLayout:
             size_hint_y: None
-            height: 0
+            height: 72
+            padding: [20, 8, 20, 0]
 
             Button:
-                text: "+"
-                font_size: 32
-                bold: True
-                size_hint: None, None
-                size: 64, 64
-                pos_hint: {'center_x': 0.5, 'center_y': 0}
-                y: 24
-                background_color: 0.45, 0.2, 0.9, 1
+                text: "  + Nueva grabacion"
+                size_hint_x: 1
+                height: 56
+                background_color: 0, 0, 0, 0
                 background_normal: ''
                 color: 1, 1, 1, 1
+                font_size: 16
+                bold: True
                 on_press: root.nueva_grabacion()
                 canvas.before:
                     Color:
-                        rgba: 0.45, 0.2, 0.9, 1
-                    Ellipse:
+                        rgba: 0, 0.298, 0.929, 1
+                    RoundedRectangle:
                         pos: self.pos
                         size: self.size
+                        radius: [28]
 
-        # Espacio para el FAB
-        Widget:
+        # ── BottomNavBar ─────────────────────────────
+        BoxLayout:
+            orientation: 'horizontal'
             size_hint_y: None
-            height: 80
+            height: 72
+            padding: [12, 8, 12, 8]
+            spacing: 4
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [24, 24, 0, 0]
+                Color:
+                    rgba: 0.671, 0.702, 0.718, 0.3
+                Line:
+                    rectangle: (self.x, self.y + self.height - 1, self.width, 1)
+
+            # Home (activo)
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 2
+                canvas.before:
+                    Color:
+                        rgba: 0.867, 0.882, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [20]
+
+                Label:
+                    text: "H"
+                    font_size: 18
+                    bold: True
+                    color: 0, 0.298, 0.929, 1
+                    halign: 'center'
+
+                Label:
+                    text: "Inicio"
+                    font_size: 10
+                    bold: True
+                    color: 0, 0.298, 0.929, 1
+                    halign: 'center'
+
+            # Grabar
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 2
+
+                Label:
+                    text: "o"
+                    font_size: 18
+                    color: 0.671, 0.702, 0.718, 1
+                    halign: 'center'
+
+                Label:
+                    text: "Grabar"
+                    font_size: 10
+                    color: 0.671, 0.702, 0.718, 1
+                    halign: 'center'
+
+            # Historial
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 2
+
+                Label:
+                    text: "="
+                    font_size: 18
+                    color: 0.671, 0.702, 0.718, 1
+                    halign: 'center'
+
+                Label:
+                    text: "Historial"
+                    font_size: 10
+                    color: 0.671, 0.702, 0.718, 1
+                    halign: 'center'
+
+            # Buscar
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 2
+
+                Label:
+                    text: "?"
+                    font_size: 18
+                    color: 0.671, 0.702, 0.718, 1
+                    halign: 'center'
+
+                Label:
+                    text: "Buscar"
+                    font_size: 10
+                    color: 0.671, 0.702, 0.718, 1
+                    halign: 'center'

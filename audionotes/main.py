@@ -25,8 +25,8 @@ from screens.recording import RecordingScreen
 from screens.result import ResultScreen
 from screens.settings import SettingsScreen
 
-# Color de fondo oscuro para toda la ventana (útil en desktop al hacer pruebas)
-Window.clearcolor = (0.1, 0.1, 0.18, 1)
+# Color de fondo "Sonic Clarity" — surface light (#f8f9fa) para desktop
+Window.clearcolor = (0.973, 0.976, 0.980, 1)
 
 
 class AudionotesApp(App):

@@ -1,155 +1,217 @@
-# kv/settings.kv — Diseño visual de la pantalla de ajustes
+# kv/settings.kv — Diseño "Sonic Clarity" (MD3 light theme)
 
 <SettingsScreen>:
     BoxLayout:
         orientation: 'vertical'
         canvas.before:
             Color:
-                rgba: 0.1, 0.1, 0.18, 1
+                rgba: 0.973, 0.976, 0.980, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
 
-        # ── Barra superior ────────────────────────────
+        # ── TopAppBar ─────────────────────────────────
         BoxLayout:
             orientation: 'horizontal'
             size_hint_y: None
-            height: 60
-            padding: [12, 8]
+            height: 64
+            padding: [8, 0, 20, 0]
             canvas.before:
                 Color:
-                    rgba: 0.12, 0.12, 0.22, 1
+                    rgba: 0.945, 0.957, 0.965, 1
                 Rectangle:
                     pos: self.pos
                     size: self.size
 
             Button:
-                text: "← Volver"
+                text: "< Volver"
                 size_hint_x: None
-                width: 100
+                width: 90
                 font_size: 14
                 background_color: 0, 0, 0, 0
-                color: 0.6, 0.6, 0.8, 1
+                color: 0, 0.298, 0.929, 1
                 on_press: root.volver()
 
             Label:
                 text: "Ajustes"
                 font_size: 20
                 bold: True
-                color: 0.7, 0.5, 1, 1
+                color: 0.169, 0.204, 0.216, 1
+                halign: 'left'
+                text_size: self.width, None
 
-            Widget:
-                size_hint_x: None
-                width: 100
-
-        # ── Contenido ─────────────────────────────────
+        # ── Contenido scrollable ──────────────────────
         ScrollView:
             BoxLayout:
                 orientation: 'vertical'
-                padding: 24
-                spacing: 20
+                padding: [24, 20, 24, 32]
+                spacing: 0
                 size_hint_y: None
                 height: self.minimum_height
 
-                # API Key
+                # ── Sección: Configuración de IA ─────────
                 Label:
-                    text: "API Key de Google AI Studio"
-                    font_size: 14
-                    color: 0.6, 0.6, 0.75, 1
+                    text: "CONFIGURACION"
+                    font_size: 11
+                    color: 0.345, 0.376, 0.392, 1
                     halign: 'left'
                     text_size: self.width, None
                     size_hint_y: None
                     height: 28
 
-                TextInput:
-                    id: input_apikey
-                    hint_text: "Tu API key"
-                    password: True
-                    multiline: False
+                # Card de configuracion
+                BoxLayout:
+                    orientation: 'vertical'
                     size_hint_y: None
-                    height: 52
-                    background_color: 0.15, 0.15, 0.25, 1
-                    foreground_color: 1, 1, 1, 1
-                    hint_text_color: 0.5, 0.5, 0.6, 1
-                    font_size: 14
-                    padding: [12, 14]
+                    height: 200
+                    padding: [16, 16]
+                    spacing: 8
+                    canvas.before:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [16]
 
-                # ID carpeta Drive
-                Label:
-                    text: "ID de carpeta de Google Drive"
-                    font_size: 14
-                    color: 0.6, 0.6, 0.75, 1
-                    halign: 'left'
-                    text_size: self.width, None
-                    size_hint_y: None
-                    height: 28
+                    Label:
+                        text: "API Key de Google AI Studio"
+                        font_size: 13
+                        color: 0.345, 0.376, 0.392, 1
+                        halign: 'left'
+                        text_size: self.width, None
+                        size_hint_y: None
+                        height: 24
 
-                TextInput:
-                    id: input_folder_id
-                    hint_text: "ID de la carpeta en Drive"
-                    multiline: False
-                    size_hint_y: None
-                    height: 52
-                    background_color: 0.15, 0.15, 0.25, 1
-                    foreground_color: 1, 1, 1, 1
-                    hint_text_color: 0.5, 0.5, 0.6, 1
-                    font_size: 14
-                    padding: [12, 14]
+                    TextInput:
+                        id: input_apikey
+                        hint_text: "Tu API key"
+                        password: True
+                        multiline: False
+                        size_hint_y: None
+                        height: 52
+                        background_color: 0.918, 0.937, 0.945, 1
+                        foreground_color: 0.169, 0.204, 0.216, 1
+                        hint_text_color: 0.671, 0.702, 0.718, 1
+                        cursor_color: 0, 0.298, 0.929, 1
+                        font_size: 14
+                        padding: [14, 16]
 
-                # Mensaje de estado (errores o éxito al guardar)
+                    Label:
+                        text: "ID de carpeta de Google Drive"
+                        font_size: 13
+                        color: 0.345, 0.376, 0.392, 1
+                        halign: 'left'
+                        text_size: self.width, None
+                        size_hint_y: None
+                        height: 24
+
+                    TextInput:
+                        id: input_folder_id
+                        hint_text: "ID de la carpeta en Drive"
+                        multiline: False
+                        size_hint_y: None
+                        height: 52
+                        background_color: 0.918, 0.937, 0.945, 1
+                        foreground_color: 0.169, 0.204, 0.216, 1
+                        hint_text_color: 0.671, 0.702, 0.718, 1
+                        cursor_color: 0, 0.298, 0.929, 1
+                        font_size: 14
+                        padding: [14, 16]
+
+                # Mensaje de estado
                 Label:
                     id: lbl_mensaje
                     text: ""
-                    color: 0.5, 0.9, 0.6, 1
+                    color: 0.114, 0.533, 0.349, 1
                     font_size: 13
                     halign: 'left'
                     text_size: self.width, None
                     size_hint_y: None
                     height: 28
 
+                Widget:
+                    size_hint_y: None
+                    height: 8
+
                 Button:
                     text: "Guardar cambios"
                     size_hint: 1, None
                     height: 52
-                    background_color: 0.45, 0.2, 0.9, 1
+                    background_color: 0, 0, 0, 0
                     background_normal: ''
-                    font_size: 16
+                    color: 1, 1, 1, 1
+                    font_size: 15
+                    bold: True
                     on_press: root.guardar_cambios()
+                    canvas.before:
+                        Color:
+                            rgba: 0, 0.298, 0.929, 1
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [26]
 
-                # Separador
                 Widget:
                     size_hint_y: None
-                    height: 20
+                    height: 28
+
+                # ── Sección: Cuenta ──────────────────────
+                Label:
+                    text: "CUENTA DE GOOGLE"
+                    font_size: 11
+                    color: 0.345, 0.376, 0.392, 1
+                    halign: 'left'
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: 28
 
                 Button:
                     text: "Desconectar cuenta de Google"
                     size_hint: 1, None
                     height: 48
-                    background_color: 0.6, 0.15, 0.15, 1
+                    background_color: 0, 0, 0, 0
                     background_normal: ''
+                    color: 0.620, 0.247, 0.306, 1
                     font_size: 14
                     on_press: root.desconectar_google()
+                    canvas.before:
+                        Color:
+                            rgba: 1, 0.910, 0.918, 1
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [24]
 
-                # Info de la app
                 Widget:
                     size_hint_y: None
-                    height: 24
+                    height: 32
+
+                # ── Sección: Información ─────────────────
+                Label:
+                    text: "ACERCA DE"
+                    font_size: 11
+                    color: 0.345, 0.376, 0.392, 1
+                    halign: 'left'
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: 28
 
                 Label:
                     id: lbl_version
                     text: ""
-                    font_size: 12
-                    color: 0.45, 0.45, 0.55, 1
-                    halign: 'center'
+                    font_size: 13
+                    color: 0.451, 0.486, 0.498, 1
+                    halign: 'left'
                     text_size: self.width, None
                     size_hint_y: None
                     height: 24
 
                 Label:
                     text: "github.com/juankeyboard/audionotes"
-                    font_size: 12
-                    color: 0.4, 0.6, 0.9, 1
-                    halign: 'center'
+                    font_size: 13
+                    color: 0, 0.298, 0.929, 1
+                    halign: 'left'
                     text_size: self.width, None
                     size_hint_y: None
                     height: 24
