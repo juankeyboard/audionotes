@@ -1,24 +1,33 @@
-# Buildozer — artefactos de compilación (pueden pesar varios GB)
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+*.iml
+
+# Android local config (contiene rutas absolutas del SDK)
+android/local.properties
+android/.gradle/
+android/key.properties
+
+# iOS
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/.symlinks/
+ios/Pods/
+
+# Legacy Python/Kivy (proyecto anterior)
 audionotes/.buildozer/
-
-# APK compilados — se distribuyen via GitHub Releases, no en el repo
 audionotes/bin/
-
-# Archivos de configuración sensible (API keys, tokens)
 audionotes/audionotes_config.json
-*.json
-
-# Python
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
-.Python
 *.egg-info/
-dist/
-build/
-
-# Entornos virtuales
 .venv/
 venv/
 env/

@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import kivy; import kivymd; print\\('kivy:', kivy.__version__\\); print\\('kivymd:', kivymd.__version__\\)\")",
+      "Bash(pip install:*)",
+      "Bash(python main.py)",
+      "Bash(flutter --version)",
+      "Bash(flutter pub:*)",
+      "Bash(flutter analyze:*)",
+      "Bash(flutter run:*)",
+      "Bash(flutter devices:*)",
+      "Bash(find \"E:/AI/Proyectos/Truq/lib\" -name \"*.dart\" -exec wc -l {} +)",
+      "Bash(cp -r \"E:/AI/Proyectos/Truq/lib\" \"E:/Audionotes/lib\")",
+      "Bash(cp -r \"E:/AI/Proyectos/Truq/test\" \"E:/Audionotes/test\")",
+      "Bash(cp -r \"E:/AI/Proyectos/Truq/android\" \"E:/Audionotes/android\")",
+      "Bash(cp -r \"E:/AI/Proyectos/Truq/ios\" \"E:/Audionotes/ios\")",
+      "Bash(cp -r \"E:/AI/Proyectos/Truq/web\" \"E:/Audionotes/web\")",
+      "Bash(cp \"E:/AI/Proyectos/Truq/pubspec.yaml\" \"E:/Audionotes/pubspec.yaml\")",
+      "Bash(cp \"E:/AI/Proyectos/Truq/pubspec.lock\" \"E:/Audionotes/pubspec.lock\")",
+      "Bash(cp \"E:/AI/Proyectos/Truq/analysis_options.yaml\" \"E:/Audionotes/analysis_options.yaml\")"
+    ]
+  }
+}
